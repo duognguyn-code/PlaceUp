@@ -1,0 +1,55 @@
+<div xmlns:th="http://wwww.thymeleaf.org"th:replace="~{/user/index :: dynamic(~{::main})}">
+  <main class="row">
+    <div class="container-fluid bg-secondary mb-5">
+      <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Thông Tin Liên Hệ</h1>
+        <div class="d-inline-flex">
+          <p class="m-0"><a href="#!">Trang chủ</a></p>
+          <p class="m-0 px-2">-</p>
+          <p class="m-0">Liên hệ</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid pt-5">
+      <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Gửi thông tin liên hệ với chúng tôi</span></h2>
+      </div>
+      <div class="row px-xl-5">
+        <div class="col-lg-7 mb-5">
+          <div class="contact-form">
+            <div id="success"></div>
+            <form name="sentMessage" id="contactForm" novalidate="novalidate">
+              <div class="control-group">
+                <input type="text" class="form-control" id="name" placeholder="Nhập đầy đủ họ tên"  style="font-size:18px; margin-bottom:10px;"/>
+              </div>
+              <div class="control-group">
+                <input type="email" class="form-control" id="email" placeholder="Nhập địa chỉ Email"  style="font-size:18px;margin-bottom:10px;"/>
+              </div>
+              <div class="control-group">
+                <input type="text" class="form-control" id="phonenumber" placeholder="Nhập số điện thoại"  style="font-size:18px;margin-bottom:10px;"/>
+              </div>
+              <div class="control-group">
+                <input type="text" class="form-control" id="address" placeholder="Nhập đầy đủ thông tin địa chỉ"  style="font-size:18px;margin-bottom:10px;"/>
+              </div>
+              <div class="control-group">
+                <textarea class="form-control" rows="6" id="message" placeholder="Nhập nội dung yêu cầu"  style="font-size:18px;margin-bottom:10px;"></textarea>
+              </div>
+              <div>
+                <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Gửi tin nhắn</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-5 mb-5">
+          <div class="d-flex flex-column mb-3">
+            <h5 class="font-weight-semi-bold mb-3" style="font-size:20px;">Shop bán giày da dành cho nam PlaceUp</h5>
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3" style="font-size:18px;"></i>Tòa nhà FPT Polytechnic, 13 phố Trịnh Văn Bô, phường Phương Canh, quận Nam Từ Liêm, TP Hà Nội</p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3" style="font-size:18px;"></i>hiepndhph15179@fpt.edu.vn</p>
+            <p class="mb-2"><i class="fa fa-phone-alt text-primary mr-3" style="font-size:18px;"></i>+012 345 67890</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

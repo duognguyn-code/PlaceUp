@@ -1,0 +1,168 @@
+<div xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/admin/main :: dynamic(~{::main})}">
+    <main class="h-full pb-16 overflow-y-auto" >
+
+        <div class="container px-6 mx-auto grid">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                {{languageNav['Admin.nav.InforGuest']}}
+            </h2>
+
+            <div class="grid gap-6 mb-8 md:grid-cols-1">
+                <div  class=" p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                    <div  class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                        <label  class="block text-sm">
+                            <span  class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.NamePositionGuest']}}</span>
+                            <input ng-model="formBill.personTake"
+                                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+                        <label class="block text-sm">
+                            <span  class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Phone']}}</span>
+                            <input   ng-model="formBill.phoneTake"
+                                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+                        <label class="block text-sm">
+                            <span  class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Address']}}</span>
+                            <input disabled ng-model="formBill.address"
+                                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+                        <label class="block text-sm">
+                            <span  class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.DateBuy']}}</span>
+                            <input disabled ng-model="formBill.createDate |date: ' HH:mm dd-MM-yyyy '"
+                                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+                    </div>
+
+                    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+                        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+                        <label class="block text-sm">
+                            <span  class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Receivingtime']}}</span>
+                            <input disabled ng-model="formBill.timeReceive |date: ' HH:mm dd-MM-yyyy '"
+                                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+                        <label class="block text-sm">
+                            <span  class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.MoneySHip']}}</span>
+                            <input disabled ng-model="formBill.moneyShip" type="text"
+                                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+                            </div>
+                        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-2">
+                            <label class="block text-sm">
+                                <span  class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.TotalMoney']}}</span>
+                                <input disabled ng-model="formBill.totalMoney" type="text"
+                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                />
+                            </label>
+                            <label class="block text-sm">
+                                <span  class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Note']}}</span>
+                                <textarea ng-model="formBill.description"
+                                          class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                >
+                            </textarea>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+<!--                <button ng-click="updateBill()">Update</button>-->
+            </div>
+
+
+        <div class="container grid px-6 mx-auto">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                {{languageNav['Admin.nav.ListOrder']}}
+            </h2>
+            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap">
+                        <thead>
+                        <tr
+                                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                        >
+                            <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.COdeOrder']}}</th>
+                            <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.NameProduct']}}</th>
+                            <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Price']}}</th>
+                            <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Quantity']}}</th>
+                            <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Status']}} </th>
+                            <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Function']}}  </th>
+                        </tr>
+                        </thead>
+                        <tbody
+                                class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                        >
+                        <tr class="text-gray-700 dark:text-gray-400" ng-repeat="billDetail in pagerbillDetails.billdetails">
+                            <td class="px-4 py-3 text-sm">
+                                {{billDetail.id}}
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+                                {{billDetail.product.name}}
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+                                {{billDetail.price}}
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+                                <input  type="number" style="width: 100px" ng-change="checkQuantityPr(billDetail)"
+                                ng-model="billDetail.quantity" >
+                            </td>
+
+                            <td class="px-4 py-3 text-sm">
+                                <span ng-if="billDetail.status==1">
+                                 <span class="text-primary">{{languageNav['Admin.nav.Waitforconfirmation']}}</span>
+                                </span>
+                                <span ng-if="billDetail.status==2">
+                                 <span class="text-primary">{{languageNav['Admin.nav.confirmed']}}</span>
+                                </span>
+                                <span ng-if="billDetail.status==3">
+                                 <span class="text-primary">{{languageNav['Admin.nav.OnDelivery']}}</span>
+                                </span>
+                                <span ng-if="billDetail.status==4">
+                                 <span class="text-primary">{{languageNav['Admin.nav.DeliveryComplete']}}</span>
+                                </span>
+                                <span ng-if="billDetail.status == 5">
+                                 <span class="text-danger">{{languageNav['Admin.nav.cancelorder']}}</span>
+                                </span>
+                                <span ng-if="billDetail.status==6">
+                                 <span class="text-danger">{{languageNav['Admin.nav.Returns']}}</span>
+                                </span>
+                                <span ng-if="billDetail.status==7">
+                                 <span class="text-danger">Giao hàng thất bại</span>
+                                </span>
+                            </td>
+                            <td class="px-4 py-3">
+                                <button ng-if="billDetail.status!==7 &&billDetail.status!==5 &&formBill.status!==1&&formBill.status!==3&&formBill.status!==4 && formBill.bill.typePayment==true"
+                                        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                                        aria-label="Edit"ng-click="updateQuantity(billDetail)"
+                                >{{languageNav['Admin.nav.Change']}}
+                                </button>
+                                <button ng-if="billDetail.status!==7 &&billDetail.status!==5&&formBill.status!==1&&formBill.status!==3&&formBill.status!==4"
+                                        class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-purple"
+                                        aria-label="Edit"ng-click="CancelBillDetails(billDetail)"
+                                >{{languageNav['Admin.nav.cancelorder']}}
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="panel-footer text-center">
+                        <button ng-click="pagerbillDetails.first()" style="margin-right: 10px;">
+                            <b class="text-sm"> |< </b>
+                        </button>
+                        <button ng-click="pagerbillDetails.prev()"  style="margin-right: 10px;">
+                            <b class="text-sm"> < </b>
+                        </button>
+                        <button>{{pagerbillDetails.page +1}}of {{pagerbillDetails.count}}</button>
+                        <button ng-click="pagerbillDetails.next()"  style="margin-left: 10px;">
+                            <b class="text-sm"> > </b>
+                        </button>
+                        <button ng-click="pagerbillDetails.last()"  style="margin-left: 10px;">
+                            <b class="text-sm"> >| </b>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

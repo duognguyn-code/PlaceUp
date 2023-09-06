@@ -1,0 +1,157 @@
+<div xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/admin/main :: dynamic(~{::main})}">
+    <main class="h-full pb-16 overflow-y-auto">
+        <div class="container px-6 mx-auto grid">
+            <h2 class="text-center my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                {{languageNav['Admin.nav.FindAccount']}}
+            </h2>
+            <class class="grid gap-6 mb-8 md:grid-cols-1">
+                <class class=" p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+
+                    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                        <label class="block text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.NameAccount']}}</span>
+                            <input ng-model="searchUsername"
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+
+                        <label class="block text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.LastNameFirstName']}}</span>
+                            <input ng-model="searchFullname"
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+                        <label class="block text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">Email</span>
+                            <input ng-model="searchEmail"
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+                        <label class="block text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Phone']}}</span>
+                            <input ng-model="searchPhone"
+                                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            />
+                        </label>
+                    </div>
+                    <!--                    <div class="grid gap-6 mb-8 md:grid-cols-2">-->
+                    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                        <label class="block text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Status']}}</span>
+                            <select ng-model="searchStatus" class=" block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                <option value="undefined">--Chọn Mục--</option>
+                                <option value="1">{{languageNav['Admin.nav.Active']}}</option>
+                                <option value="0">{{languageNav['Admin.nav.NoneActive']}}</option>
+                            </select>
+                        </label>
+                        <label class="block text-sm">
+                            <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Position']}}</span>
+                            <select ng-model="searchRole" class=" block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                <option value="undefined">--Chọn Mục--</option>
+                                <option value="ROLE_USER">{{languageNav['Admin.nav.PositionGuest']}}</option>
+                                <option value="ROLE_ADMIN">{{languageNav['Admin.nav.PositionAdmin']}}</option>
+                                <option value="ROLE_STAFF">{{languageNav['Admin.nav.PositionStaff']}}</option>
+                            </select>
+                        </label>
+                        <label class="block text-sm" style="margin-top: 18px; margin-left: 30px">
+                            <button ng-click="searchAccount()" style="margin-top: 10px;"
+                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                {{languageNav['Admin.nav.Find']}}
+                            </button>
+                            <button ng-click="resetSearch()" style="margin-top: 10px;margin-left: 10px"
+                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                {{languageNav['Admin.nav.Refresh']}}
+                            </button>
+                        </label>
+                    </div>
+                </class>
+            </class>
+        </div>
+
+
+    <div class="container grid px-6 mx-auto">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+            {{languageNav['Admin.nav.ListAccount']}}
+        </h2>
+        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+            <div class="w-full overflow-x-auto">
+                <table class="w-full whitespace-no-wrap">
+                    <thead>
+                    <tr
+                            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                    >
+                        <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Account']}}</th>
+                        <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.LastNameFirstName']}}</th>
+                        <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Sex']}}</th>
+                        <th class="px-4 py-3" scope="col">Email</th>
+                        <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Phone']}}</th>
+                        <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Createdate']}}</th>
+                        <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Status']}}</th>
+                        <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Position']}}</th>
+                        <th class="px-4 py-3" scope="col">{{languageNav['Admin.nav.Function']}}</th>
+                    </tr>
+                    </thead>
+                    <tbody
+                            class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"
+                    >
+                    <tr ng-repeat="acc in pagerAccount.Accounts"
+                        class="text-gray-700 dark:text-gray-400" style="font-size:16px;">
+                        <td class="px-4 py-3 ">{{acc.account.username}}</td>
+                        <td class="px-4 py-3 ">{{acc.account.fullName}}</td>
+                        <td class="px-4 py-3 "> {{acc.account.sex == 0 ? 'Nữ' : 'Nam'}}</td>
+                        <td class="px-4 py-3 ">{{acc.account.email}}</td>
+                        <td class="px-4 py-3 ">{{acc.account.phone}}</td>
+                        <td class="px-4 py-3 ">{{acc.account.date | date: "dd-MM-yyyy"}}</td>
+                        <td class="px-4 py-3 "> {{acc.account.status == 0 ? 'Ngưng Hoạt Động' : 'Hoạt Động'}}</td>
+                        <td class="px-4 py-3 ">
+
+                                <span ng-if="acc.role.idRole==1">
+                                 <span >Nhân Viên</span>
+                                </span>
+                            <span ng-if="acc.role.idRole==2">
+                                 <span >Quản Lý</span>
+                                </span>
+                            <span ng-if="acc.role.idRole==3">
+                                 <span >Khách Hàng</span>
+                                </span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex items-center space-x-4 text-sm">
+                                <button  ng-click="deleteAccount(acc.account.username)" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                    </svg>
+                                </button>
+                                <button ng-click="edit(acc.account.username)"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                    </svg>
+                                </button>
+
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="panel-footer text-center">
+                    <button ng-click="pagerAccount.first()" style="margin-right: 10px;">
+                        <b class="text-sm"> |< </b>
+                    </button>
+                    <button ng-click="pagerAccount.prev()" style="margin-right: 10px;">
+                        <b class="text-sm"> < </b>
+                    </button>
+                    <button>{{pagerAccount.page + 1}}of {{pagerAccount.count}}</button>
+                    <button ng-click="pagerAccount.next()" style="margin-left: 10px;">
+                        <b class="text-sm"> > </b>
+                    </button>
+                    <button ng-click="pagerAccount.last()" style="margin-left: 10px;">
+                        <b class="text-sm"> >| </b>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </main>
+</div>

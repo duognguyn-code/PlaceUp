@@ -1,0 +1,222 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/user/index :: dynamic(~{::main})}">
+    <main class="row" style="width:1496px;margin-left:0px;margin-right:0px;">
+        <!-- Page Header Start -->
+        <div class="container-fluid bg-secondary mb-5">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                <h1 class="font-weight-semi-bold text-uppercase mb-3">Địa chỉ</h1>
+                <div class="d-inline-flex">
+                    <p class="m-0"><a href="">Trang chủ</a></p>
+                    <p class="m-0 px-2">-</p>
+                    <p class="m-0">Địa chỉ</p>
+                </div>
+            </div>
+        </div>
+        <!-- Page Header End -->
+        <!-- Cart Start -->
+        <div class="container-fluid pt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-repeat="addres in pagerAddress.listaddress" class="card mb-4">
+                        <div class="card-body">
+                            <div class="card mb-2">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <h5>Địa chỉ</h5>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <button ng-click="setAddressDefault(addres)"
+                                                    class="btn btn-outline-primary">
+                                                Chọn
+                                            </button>
+                                            <button ng-click="delete(addres)" class="btn">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                     fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Người nhận</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{addres.personTake}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Số điện thoại</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{addres.phoneTake}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Địa chỉ</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{addres.addressTake}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Địa chỉ cụ thể</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">{{addres.addressDetail}},
+                                                {{addres.addressTake}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer text-center">
+                <button ng-click="pagerAddress.first()" style="margin-right: 10px;">
+                    <b class="text-sm"> |< </b>
+                </button>
+                <button ng-click="pagerAddress.prev()" style="margin-right: 10px;">
+                    <b class="text-sm"> < </b>
+                </button>
+                <button>{{pagerAddress.page + 1}}of {{pagerAddress.count}}</button>
+                <button ng-click="pagerAddress.next()" style="margin-left: 10px;">
+                    <b class="text-sm"> > </b>
+                </button>
+                <button ng-click="pagerAddress.last()" style="margin-left: 10px;">
+                    <b class="text-sm"> >| </b>
+                </button>
+            </div>
+            <div class="row">
+                <form method="post" name="myForm" ng-submit="doSubmit()" enctype="multipart/form-data">
+                    <div class="row" style="margin-bottom:30px; margin-top: 50px">
+                        <div class="col-lg-12" style="margin-bottom:30px;">
+                            <label class="block text-sm" style="margin-left:30px;">
+                                <span class="col-md-4 text-gray-700 dark:text-gray-400"
+                                      style="font-size:20px;font-weight:700;">Họ Tên người nhận</span>
+                                <input
+                                        class="col-md-8 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                        style="border: 1px solid #D19C97; font-size:20px; border-radius:5px; width:600px; height:40px;"
+                                        ng-minlength="6" ng-maxlength="250"
+                                        ng-model="form.personTake"
+                                        placeholder="Ví dụ: Nguyễn Văn A" name="personTake" required
+                                />
+                                <span ng-show="myForm.$submitted || myForm.personTake.$dirty" style="color: red">
+                                        <span class="error" ng-show="myForm.personTake.$error.required"
+                                        > <i
+                                                class="fa fa-exclamation-circle"></i>Họ và tên người nhận không được trống</span>
+                                        <span class="error"
+                                              ng-show="((myForm.personTake.$error.minlength || myForm.personTake.$error.maxlength)
+                                              || myForm.personTake.$error.$dirty)">
+                                                <i class="fa fa-exclamation-circle"></i>Họ và tên người nhận từ 6-250 ký tự</span>
+                                    </span>
+                            </label>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="block text-sm" style="margin-left:30px;">
+                                <span class="col-md-4 text-gray-700 dark:text-gray-400"
+                                      style="font-size:20px;font-weight:700;">Số điện thoại</span>
+                                <input
+                                        class="col-md-8 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                        style="border: 1px solid #D19C97; font-size:20px; border-radius:5px; width:600px; height:40px;margin-left:60px;"
+                                        ng-model="form.phoneTake"
+                                        ng-minlength="0" ng-maxlength="10" name="phoneTake" required type="text"
+                                        placeholder="Số điện thoại liên lạc"
+                                        pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
+                                />
+                            </label>
+                            <span ng-show="myForm.$submitted || myForm.phoneTake.$dirty" style="color: red">
+                                        <span class="error" ng-show="myForm.phoneTake.$error.required"
+                                        > <i
+                                                class="fa fa-exclamation-circle"></i>Số điện thoại không được
+                                            trống</span>
+                                            <span class="error" ng-show="myForm.phoneTake.$error.pattern"
+                                            > <i
+                                                    class="fa fa-exclamation-circle"></i>Số điện thoại sai đinh dạng</span>
+                                    </span>
+                        </div>
+                    </div>
+                    <div class="row date" style="margin-bottom:30px;">
+                        <div class="col-sm-2">
+                            <p class="mb-0 text-gray-700 dark:text-gray-400"
+                               style="font-size:20px;font-weight:700;margin-left:43px;">Địa chỉ</p>
+                        </div>
+                        <div class="col-sm-10 d-flex gap-3">
+                            <div class="row" style="margin-left:8px;">
+                                <div class=" col-sm-4 input-wrapper small-4 columns" style="padding-left: 0;">
+                                    <select ng-model="form.provinceId" id="city" required
+                                            style="width:300px;height:40px;border-radius:5px;">
+                                        <option value='' selected>Chọn Tỉnh/Thành phố</option>
+                                        <option ng-repeat="provin in provinces" value='{{provin.ProvinceID}}'>
+                                            {{provin.ProvinceName}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 input-wrapper small-4 columns">
+                                    <select ng-model="form.districtId" id="district" required
+                                            style="width:300px;height:40px;border-radius:5px;">
+                                        <option value='' selected>Chọn Quận/Huyện</option>
+                                        <option ng-repeat="dis in district" value='{{dis.DistrictID}}'>
+                                            {{dis.DistrictName}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4 input-wrapper small-4 columns" style="padding-right: 0;">
+                                    <select ng-model="form.wardId" id="ward" required
+                                            style="width:300px;height:40px;border-radius:5px;">
+                                        <option value='' selected>Chọn Xã/Phường</option>
+                                        <option ng-repeat="wd in ward" value="{{wd.WardCode}}">{{wd.WardName}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom:30px;">
+                        <div class="col-md-6">
+                            <label class="block text-sm" style="margin-left:30px;">
+                                <span class="col-md-4 text-gray-700 dark:text-gray-400"
+                                      style="font-size:20px;font-weight:700;">Địa chỉ người nhận</span>
+                                <input
+                                        class="col-md-8 block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                        style="border: 1px solid #D19C97; font-size:20px; border-radius:5px; width:600px; height:40px;"
+                                        ng-minlength="6" ng-maxlength="250"
+                                        ng-model="form.addressDetail"
+                                        name="addressDetail"
+                                        placeholder="Ví dụ : số 111 ngọa long"
+                                        type="text"
+                                        required
+                                />
+                                <span ng-show="myForm.$submitted || myForm.addressDetail.$dirty" style="color: red">
+                                        <span class="error" ng-show="myForm.addressDetail.$error.required"
+                                        > <i
+                                                class="fa fa-exclamation-circle"></i>Địa chỉ cụ thể không được trống</span>
+                                        <span class="error"
+                                              ng-show="((myForm.addressDetail.$error.minlength || myForm.addressDetail.$error.maxlength)
+                                              || myForm.addressDetail.$error.$dirty)">
+                                                <i class="fa fa-exclamation-circle"></i>Địa chỉ cụ thể phải từ 6-250 ký tự</span>
+                        </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5"></div>
+                        <div class="col-sm-7">
+                            <button type="submit" ng-disabled="myForm.$invalid" class="btn btn-primary px-3"
+                                    style="width:150px;height:40px;font-size:20px;font-weight:500;">
+                                {{checkSubmit == false ? title.insert : title.update}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Cart End -->
+    </main>
+</div>

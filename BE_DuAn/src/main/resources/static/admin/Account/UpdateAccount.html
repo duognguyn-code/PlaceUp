@@ -1,0 +1,153 @@
+<div xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/admin/main :: dynamic(~{::main})}">
+  <main class="h-full pb-16 overflow-y-auto">
+    <div class="container px-6 mx-auto grid">
+      <h2 class="text-center my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        {{languageNav['Admin.nav.UpdateAcount']}}
+      </h2>
+      <div class=" p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+        <div class="grid gap-6 mb- md:grid-cols-2">
+          <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">
+            <label class="block text-sm">
+              <span class="text-gray-700 dark:text-gray-400"> {{languageNav['Admin.nav.NameAccount']}}</span>
+              <input disabled ng-model="formAccountUpdate.account.username"
+                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                      placeholder="Nhập tên tài khoản"
+              />
+            </label>
+          </div>
+
+          <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">
+            <label class="block text-sm ">
+              <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Phone']}}</span>
+              <input ng-model="formAccountUpdate.account.phone"
+                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                      placeholder="Nhập Số điện thoại"
+              />
+            </label>
+          </div>
+        </div>
+        <!--        ===============-->
+        <div class="grid gap-6 mb- md:grid-cols-2">
+          <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">
+            <label class="block text-sm">
+              <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.NameAccount']}}</span>
+              <input ng-model="formAccountUpdate.account.fullName"
+                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                      placeholder="Nhập họ và tên"
+              />
+            </label>
+          </div>
+          <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">
+            <label class="block text-sm">
+              <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Sex']}}</span>
+              <div class="block w-full mt-1 text-sm dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                <label class="inline-flex items-center text-gray-600 dark:text-gray-400">
+                  <input type="radio"ng-model="formAccountUpdate.account.sex"ng-value="1"
+                         class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                  />
+                  <span class="ml-2">Nam</span>
+                </label>
+                <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
+                  <input type="radio"ng-model="formAccountUpdate.account.sex"ng-value="0"
+                         class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                  />
+                  <span class="ml-2">Nữ</span>
+                </label>
+              </div>
+            </label>
+          </div>
+<!--          <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">-->
+<!--            <label class="block text-sm ">-->
+<!--              <span class="text-gray-700 dark:text-gray-400">Địa chỉ</span>-->
+<!--              <input ng-model="formAccountUpdate.address"-->
+<!--                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"-->
+<!--                      placeholder="Nhập Địa chỉ"-->
+<!--              />-->
+<!--            </label>-->
+<!--          </div>-->
+        </div>
+        <!--        ===========-->
+        <div class="grid gap-6 mb- md:grid-cols-2">
+          <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">
+            <label class="block text-sm">
+              <span class="text-gray-700 dark:text-gray-400">Email</span>
+              <input ng-model="formAccountUpdate.account.email"
+                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                      placeholder="Nhập địa chỉ Email"
+              />
+            </label>
+          </div>
+
+          <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">
+            <label class="block text-sm ">
+              <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Position']}}</span>
+              <select ng-model="formAccountUpdate.role.idRole" id="role" name="role"
+                      class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+<!--                <option ng-value="1">STAFF - Nhân viên</option>-->
+<!--                <option ng-value="2">ADMIN - Quản lý</option>-->
+<!--                <option ng-value="3">ADMIN - Khách Hàng</option>-->
+                <option ng-repeat="role in role" ng-value="role.idRole">{{role.name}}</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <!--        ============-->
+        <div class="grid gap-6 mb- md:grid-cols-2">
+<!--          <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">-->
+<!--            <label class="block text-sm">-->
+<!--              <span class="text-gray-700 dark:text-gray-400">Giới tính</span>-->
+<!--              <div class="block w-full mt-1 text-sm dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">-->
+<!--                <label class="inline-flex items-center text-gray-600 dark:text-gray-400">-->
+<!--                  <input type="radio"ng-model="formAccountUpdate.sex"ng-value="1"-->
+<!--                         class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"-->
+<!--                  />-->
+<!--                  <span class="ml-2">Nam</span>-->
+<!--                </label>-->
+<!--                <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">-->
+<!--                  <input type="radio"ng-model="formAccountUpdate.sex"ng-value="0"-->
+<!--                         class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"-->
+<!--                  />-->
+<!--                  <span class="ml-2">Nữ</span>-->
+<!--                </label>-->
+<!--              </div>-->
+<!--            </label>-->
+<!--          </div>-->
+
+          <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">
+            <label class="block text-sm">
+              <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Status']}}</span>
+              <div class="block w-full mt-1 text-sm dark:text-gray-300 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                <label class="inline-flex items-center text-gray-600 dark:text-gray-400">
+                  <input type="radio"ng-model="formAccountUpdate.account.status"ng-value="1"
+                         class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                  />
+                  <span class="ml-2">Hoạt Động</span>
+                </label>
+                <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
+                  <input type="radio"ng-model="formAccountUpdate.account.status"ng-value="0"
+                         class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                  />
+                  <span class="ml-2">Ngưng Hoạt Động</span>
+                </label>
+              </div>
+            </label>
+          </div>
+          <div class="mt-4 text-sm">
+            <button ng-click="updateAccount()"  style="margin-top: 10px; margin-left: 100px;"
+                    class="px-3 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+              {{languageNav['Admin.nav.Update']}}
+            </button>
+            <button ng-click="resetFormUpdate()"  style="margin-top: 10px; margin-left: 65px;"
+                    class="px-3 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+              {{languageNav['Admin.nav.Refresh']}}
+            </button>
+          </div>
+        </div>
+        <!--        ============-->
+
+
+        <!--        ===============-->
+      </div>
+    </div>
+  </main>
+</div>

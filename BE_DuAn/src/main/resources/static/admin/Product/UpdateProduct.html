@@ -1,0 +1,168 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/admin/main :: dynamic(~{::main})}">
+    <main class="h-full pb-16 overflow-y-auto">
+        <div class="container px-6 mx-auto grid">
+            <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                {{languageNav['Admin.nav.UpdateProduct']}}
+            </h2>
+
+            <div class="grid gap-6 mb-8 md:grid-cols-1">
+                <div class="p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800"
+                     ng-init="getProductDataUpdate(productId)">
+                    <div class="grid gap-6 md:grid-cols-2">
+<!--                        <div class="grid gap-6 md:grid-cols-1">-->
+                            <div class="grid gap-6 md:grid-cols-2" style="grid-template-columns: 500px 50px;">
+                                <label class="block text-sm">
+                                    <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Category']}}</span>
+                                    <select ng-model="productData.category" name="category" required
+                                            ng-options="category.idCategory as category.name for category in categories"
+                                            ng-change="generationNameForUpdate()"
+                                            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                    </select>
+                                </label>
+                            </div>
+<!--                                <div  class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">-->
+                                    <div   class="thumbnail_images" id="previewContainer">
+                                        <div  class="previewImageContainer row">
+                                    <img style="width: 90px;height: 90px" ng-if="checkimg==0"
+                                         src="{{productData.images.length>0?productData.images[0].urlimage:''}}"
+                                         alt=""
+                                    >
+                                    <img style="width: 90px;height: 90px" ng-if="checkimg==0"
+                                         src="{{productData.images.length>0?productData.images[1].urlimage:''}}"
+                                         alt=""
+                                    ><img style="width: 90px;height: 90px" ng-if="checkimg==0" class="img-fluid w-10"
+                                          src="{{productData.images.length>0?productData.images[2].urlimage:''}}"
+                                          alt=""
+                                >
+                                    <img style="width: 90px;height: 90px" ng-if="checkimg==0" class="img-fluid w-10"
+                                         src="{{productData.images.length>0?productData.images[3].urlimage:''}}"
+                                         alt=""
+                                    >
+                                    </div>
+
+                                        <div  ng-if="checkimg==1" class="previewImageContainer row" id="previewImagesContainerUpdate">
+                                        </div>
+                                    </div>
+<!--                                </div>-->
+<!--                            </div>-->
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Status']}}</span>
+                                <div class="mt-2">
+                                    <label class="inline-flex items-center text-gray-600 dark:text-gray-400">
+                                        <input type="radio" ng-model="productData.status" ng-value="1" name="status"
+                                               class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" />
+                                        <span class="ml-2">{{languageNav['Admin.nav.Active']}}</span>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6 text-gray-600 dark:text-gray-400">
+                                        <input type="radio" ng-model="productData.status" ng-value="0" name="status"
+                                               class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" />
+                                        <span class="ml-2">{{languageNav['Admin.nav.NoneActive']}}</span>
+                                    </label>
+                                </div>
+                            </label>
+
+<!--                        </div>-->
+                    </div>
+                    <div class="grid gap-6 md:grid-cols-2">
+                        <div class="grid gap-6 md:grid-cols-2" style="grid-template-columns: 500px 50px;">
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.NameProduct']}}</span>
+                                <input ng-model="productData.name"
+                                       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                       name="name" required/>
+                            </label>
+                        </div>
+                        <div class="grid gap-6 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">
+                            <label class="block text-sm ">
+                                <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Image']}}</span>
+                                <input id="image" type="file" ng-click="checkImgUpdate()"
+                                       onchange="angular.element(this).scope().uploadFileUpdate(this.files)"name="files"
+                                       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                       multiple/>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-6 md:grid-cols-2">
+                        <div class="grid gap-6 mb-8 md:grid-cols-2" style="grid-template-columns: 500px 50px;">
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Design']}}</span>
+                                <select ng-model="productData.design" id="design" name="design" ng-change="generationNameForUpdate()"
+                                        class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                    <option ng-repeat="design in designs" ng-value="design.idDesign">
+                                        {{design.name}}
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="grid gap-6 mb-8 md:grid-cols-2" style="grid-template-columns: 500px 50px;">
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Size']}}</span>
+                                <select ng-model="productData.size" name="size" id="size" ng-change="generationNameForUpdate()"
+                                        class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                    <option ng-repeat="size in sizes" ng-value="size.idSize">{{size.name}}</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-6 md:grid-cols-2">
+                        <div class="grid gap-6 mb-8 md:grid-cols-2" style="grid-template-columns: 500px 50px;">
+                            <label class="block text-sm">
+
+                                <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Color']}}</span>
+                                <select ng-model="productData.color" id="color" name="color" ng-change="generationNameForUpdate()"
+
+                                        class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                    <option ng-repeat="color in colors" ng-value="color.idColor">{{color.name}}
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="grid gap-6 mb-8 md:grid-cols-2" style="grid-template-columns: 500px 50px;">
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Material']}}</span>
+                                <select ng-model="productData.material" id="material" name="material" ng-change="generationNameForUpdate()"
+                                        class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray">
+                                    <option ng-repeat="material in materials" ng-value="material.idMaterial">
+                                        {{material.name}}
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-6 mb-8 md:grid-cols-2">
+                        <div class="grid gap-6 mb-8 md:grid-cols-2" style="grid-template-columns: 500px 50px;">
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Price']}}</span>
+                                <input ng-model="productData.price"
+                                       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                />
+                            </label>
+                        </div>
+                        <div class="grid gap-6 mb-8 md:grid-cols-2" style=" grid-template-columns: 500px 50px;">
+                            <label class="block text-sm">
+                                <span class="text-gray-700 dark:text-gray-400">{{languageNav['Admin.nav.Quantity']}}</span>
+                                <input  ng-model="productData.quantity" placeholder="Số lượng  sản phẩm"
+                                        class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                />
+                            </label>
+
+                        </div>
+                        <div class="mt-4 text-sm">
+                            <button ng-click="onUpdate(product.id)" style="margin-top: 10px; margin-left: 120px;"
+                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                {{languageNav['Admin.nav.Update']}}
+                            </button>
+                            <button style="margin-top: 10px; margin-left: 65px;" ng-click="refreshUpdate()"
+                                    class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                                {{languageNav['Admin.nav.Refresh']}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

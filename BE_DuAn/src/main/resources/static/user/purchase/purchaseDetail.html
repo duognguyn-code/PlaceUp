@@ -1,0 +1,231 @@
+<div xmlns:th="http://wwww.thymeleaf.org" th:replace="~{/user/index :: dynamic(~{::main})}">
+    <main class="row">
+
+        <div class="container-fluid bg-secondary mb-5">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+                <h1 class="font-weight-semi-bold text-uppercase mb-3">Đơn hàng chi tiết</h1>
+                <div class="d-inline-flex">
+                    <p class="m-0"><a href="#!/">Trang chủ</a></p>
+                    <p class="m-0 px-2">-</p>
+                    <p class="m-0"><a href="#!purchase">Đơn hàng</a></p>
+                    <p class="m-0 px-2">-</p>
+                    <p class="m-0">Đơn hàng chi tiết</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-center" style="font-weight:500;">Đơn hàng chi tiết</h2>
+        <div class="container-fluid pt-5" style="width:1400px;">
+            <table class="table table-bordered">
+                <thead>
+                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
+                    style="font-size:18px;">
+                    <th class="px-4 py-3" scope="col">Hình ảnh</th>
+                    <th class="px-4 py-3" scope="col">Sản phẩm</th>
+                    <th class="px-4 py-3" scope="col">Màu sắc</th>
+                    <th class="px-4 py-3" scope="col">Chất liệu</th>
+                    <th class="px-4 py-3" scope="col">Kiểu dáng</th>
+                    <th class="px-4 py-3" scope="col">Size</th>
+                    <th class="px-4 py-3" scope="col">Số lượng</th>
+                    <th class="px-4 py-3" scope="col">Giá (VNĐ)</th>
+                    <th class="px-4 py-3" scope="col">Tổng (VNĐ)</th>
+                    <th class="px-4 py-3" scope="col">Trạng thái</th>
+                    <th class="px-4 py-3" scope="col">Thao tác</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                <tr ng-repeat="orderDetail in billDetails"
+                    class="text-gray-700 dark:text-gray-400" style="font-size:16px;">
+                    <td class="px-4 py-3 ">
+                        <img class="img-responsive" width="80px" height="80px"
+                             src="{{orderDetail.product.images[0].urlimage}}">
+                    </td>
+                    <td class="px-4 py-3 ">{{orderDetail.product.name}}</td>
+                    <td class="px-4 py-3 ">{{orderDetail.product.color.name}}</td>
+                    <td class="px-4 py-3 ">{{orderDetail.product.material.name}}</td>
+                    <td class="px-4 py-3 ">{{orderDetail.product.design.name}}</td>
+                    <td class="px-4 py-3 ">{{orderDetail.product.size.name}}</td>
+                    <td class="px-4 py-3 ">{{orderDetail.quantity}}</td>
+                    <td class="px-4 py-3 ">{{orderDetail.product.price | number}} VND</td>
+                    <td class="px-4 py-3 ">{{orderDetail.quantity * orderDetail.product.price | number}} VND</td>
+                    <td class="px-4 py-3 " ng-if="shouldShowChangeButton(orderDetail) && orderDetail.bill.oldBill == null">
+<!--                        <p ng-if="orderDetail.status == 1 ">Chờ xác nhận </p>-->
+                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 2">Có thể đổi trả</p>
+                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 3">Chờ xác nhận đổi trả</p>
+                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 4">Vui lòng chờ</p>
+                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 5">Đổi giày thành công</p>
+                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 6">Hủy yêu cầu</p>
+                    </td>
+                    <td class="px-4 py-3 " ng-if="!shouldShowChangeButton(orderDetail)">
+                        <p ng-if="orderDetail.status == 1 ">Chờ xác nhận </p>
+                        <p ng-if="orderDetail.status == 2 ">Đã xác nhận </p>
+<!--                        <p ng-if="orderDetail.status == 3 ">Đang giao hàng </p>-->
+<!--                        <p ng-if="orderDetail.status == 4 ">Đổi trả thành công </p>-->
+<!--                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 2">Có thể đổi trả</p>-->
+<!--                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 3">Chờ xác nhận đổi trả</p>-->
+<!--                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 4">Vui lòng chờ, đang chọn giày-->
+<!--                            mới-->
+<!--                            cho bạn</p>-->
+<!--                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 5">Đổi máy thanh công</p>-->
+<!--                        <p ng-if="orderDetail.bill.status == 4 && orderDetail.status == 6">Hủy yêu cầu</p>-->
+                    </td>
+                    <td class="px-4 py-3 " ng-click="getProductChange(orderDetail)">
+                        <a ng-if="orderDetail.bill.status == 4 && orderDetail.status == 2 && shouldShowChangeButton(orderDetail)" style="color:black;"
+                           data-bs-target="#exampleModalPurchaseDetail" data-bs-toggle="modal"><i
+                                class="fa fa-info-circle" aria-hidden="true" style="margin-right:2px;"></i>Đổi hàng</a>
+                        <a ng-if="orderDetail.status == 1 " style="color:black;"
+                           ng-click="CancelBillDetails(orderDetail)"><i
+                                class="fa fa-info-circle" aria-hidden="true" style="margin-right:2px;"></i>Hủy SP</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="modal fade" id="exampleModalPurchaseDetail" tabindex="-1" data-bs-backdrop="static"
+                 aria-labelledby="exampleModalLabelPurchaseDetail" aria-hidden="true">
+                <form role="formProductChange" method="post" class="row" name="myForm"
+                      enctype="multipart/form-data">
+                    <div class="modal-dialog modal-md">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabelPayment"></h5>
+                                <p style="color:black">Đổi hàng</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                                <div class="container">
+                                    <table class="table text-center mb-0">
+                                        <thead class="bg-secondary text-dark">
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Số lượng</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="align-middle">
+                                        <tr>
+                                            <td class="align-middle" ng-model="formProductChange.formDetails">
+                                                {{formDetails.product.name}}
+                                            </td>
+                                            <td class="align-middle">
+                                                <div class="input-group quantity mx-auto" style="width: 100px;">
+                                                    <input min="0" max="{{formDetails.quantity}}"
+                                                           type="number"
+                                                           name="quantity"
+                                                           class="form-control form-control-sm bg-secondary text-center"
+                                                           ng-model="formProductChange.quantity_product_change">
+                                                    <span ng-show="myForm.$submitted || myForm.quantity.$dirty">
+                                                        <span class="error" ng-show="myForm.quantity.$error.required">
+                                                            <i class="fa fa-exclamation-circle" style="color: red"></i> Số lượng không được trống
+                                                        </span>
+                                                        <span class="error" ng-show="myForm.quantity.$error.min">
+                                                            <i class="fa fa-exclamation-circle" style="color: red"></i> Số lượng phải lớn hơn 0
+                                                        </span>
+                                                        <span class="error" ng-show="myForm.quantity.$error.max">
+                                                            <i class="fa fa-exclamation-circle"
+                                                               style="color: red"></i> Số lượng không được vượt quá {{formDetails.quantity}}
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div style="margin-top:20px;">
+                                        <h6 class="" style="color:black;font-weight:600;">Ảnh</h6>
+                                        <label class="block text-sm ">
+                                            <input id="image" type="file"
+                                                   onchange="angular.element(this).scope().uploadFile(this.files)"
+                                                   name="files"
+                                                   accept=".jpg,.jpeg,.png,.mp4,.avi,.mov"
+                                                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                                                   multiple/>
+                                        </label>
+                                    </div>
+                                    <div style="margin-top:20px;" class="thumbnail_images" id="previewContainer">
+                                        <label class="block text-sm">
+                                            <div class="previewImageContainer" id="previewImagesContainer">
+                                            </div>
+                                            <video id="previewVideo" controls
+                                                   style="max-width: 50%;height: 50%; display: none;"></video>
+                                        </label>
+                                    </div>
+                                    <div style="margin-top:20px;">
+                                        <h6 class="" style="color:black;font-weight:600;">Email của bạn:
+                                            {{accountActive.email}} </h6>
+                                        <label class="block text-sm">
+                                            <input ng-model="formProductChange.email" name="customReason" value=""
+                                                   placeholder="Nhập email"
+
+                                                   style="width: 420px; height: 50px; border-radius: 5px;" required
+                                                   maxlength="250">
+
+                                        </label>
+                                    </div>
+
+                                    <div style="margin-top:20px;">
+                                        <h6 class="" style="color:black;font-weight:600;">SDT của bạn:
+                                            {{accountActive.phone}} </h6>
+                                        <label class="block text-sm">
+                                            <input ng-model="formProductChange.phone" name="customReason" value=""
+                                                   placeholder="Nhập phone"
+                                                   style="width: 420px; height: 50px; border-radius: 5px;" required
+                                                   maxlength="250">
+                                        </label>
+                                    </div>
+
+                                    <div style="margin-top: 20px;">
+                                        <h6 class="" style="color: black; font-weight: 600;">Lý do đổi</h6>
+                                        <label class="block text-sm">
+                                            <select ng-model="formProductChange.description" name="description"
+                                                    style="width: 420px; border-radius: 5px;" required>
+                                                <option value="" disabled selected>Chọn lý do đổi</option>
+                                                <option value="Giày hỏng">Giày hỏng</option>
+                                                <option value="Sai size">Sai size</option>
+                                                <option value="Sai màu">Sai màu</option>
+                                                <option value="Sai chất liệu">Sai chất liệu</option>
+                                                <option value="Sai thể Loại">Sai thể Loại</option>
+                                                <option value="Sai Kiểu dáng">Sai Kiểu dáng</option>
+                                                <option value="other">Khác</option>
+                                            </select>
+                                        </label>
+                                        <span ng-show="myForm.$submitted || myForm.description.$dirty">
+                                            <span class="error" ng-show="myForm.description.$error.required">
+                                                <i class="fa fa-exclamation-circle" style="color: red"></i>Lý do đổi là bắt buộc
+                                            </span>
+                                        </span>
+                                    </div>
+
+                                    <div ng-show="formProductChange.description === 'other'" style="margin-top: 10px;">
+                                        <label class="block text-sm">
+                                            <textarea ng-model="customReason" name="customReason"
+                                                      style="width: 420px; height: 50px; border-radius: 5px;" required
+                                                      maxlength="250"></textarea>
+                                        </label>
+                                        <span ng-show="myForm.$submitted || myForm.customReason.$dirty">
+                                            <span class="error" ng-show="myForm.customReason.$error.required">
+                                                <i class="fa fa-exclamation-circle" style="color: red"></i>Lý do khác không được trống
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="">
+                                        <button ng-click="saveProductChange()" class="btn btn-success"
+                                                style="border-radius:8px;">
+                                            Xác nhận
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,92 @@
+<div xmlns:th="http://wwww.thymeleaf.org"th:replace="~{/user/index :: dynamic(~{::main})}">
+  <main class="row">
+    <div class="container-fluid bg-secondary mb-5">
+      <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Đơn hàng</h1>
+        <div class="d-inline-flex">
+          <p class="m-0"><a href="#!/">Trang chủ</a></p>
+          <p class="m-0 px-2">-</p>
+          <p class="m-0">Đơn hàng</p>
+        </div>
+      </div>
+    </div>
+    <h2 class="text-center" style="font-weight:500;">Đơn hàng</h2>
+    <div class="container-fluid pt-5" style="width:1400px;">
+      <table class="table table-bordered">
+        <thead>
+        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" style="font-size:18px;">
+          <th class="px-4 py-3" scope="col">Mã đơn</th>
+          <th class="px-4 py-3" scope="col">Địa chỉ</th>
+          <th class="px-4 py-3" scope="col">SĐT</th>
+          <th class="px-4 py-3" scope="col">Ngày mua</th>
+          <th class="px-4 py-3" scope="col">Ngày nhận</th>
+          <th class="px-4 py-3" scope="col">Tiền ship </th>
+          <th class="px-4 py-3" scope="col">Tổng giá </th>
+          <th class="px-4 py-3" scope="col">Ghi chú</th>
+          <th class="px-4 py-3" scope="col">Trạng thái</th>
+          <th class="px-4 py-3" scope="col">Thao tác</th>
+        </tr>
+        </thead>
+        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+        <tr ng-repeat="order in pagerBill.orders"
+            class="text-gray-700 dark:text-gray-400" style="font-size:16px;">
+          <td class="px-4 py-3 ">{{order.id}}</td>
+          <td class="px-4 py-3 ">{{order.address}}</td>
+          <td class="px-4 py-3 ">{{order.phoneTake}}</td>
+          <td class="px-4 py-3 ">{{order.createDate | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+          <td class="px-4 py-3 ">{{order.timeReceive | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+          <td class="px-4 py-3 ">{{order.moneyShip | number}} VND</td>
+          <td class="px-4 py-3 ">{{order.totalMoney | number}} VND</td>
+          <td class="px-4 py-3 " ng-if="order.description">{{order.description}}</td>
+          <td class="px-4 py-3 " ng-if="!order.description">Không có</td>
+          <td class="px-4 py-3 " ng-if="order.status==1 && order.statusBuy==0">
+            <span class="text-warning">Chờ xác nhận (Chưa thanh toán)</span>
+          </td>
+          <td class="px-4 py-3 " ng-if="order.status==1 && order.statusBuy==1">
+            <span class="text-warning">Chờ xác nhận (Đã thanh toán)</span>
+          </td>
+          <td class="px-4 py-3 " ng-if="order.status==2">
+            <span class="text-warning">Xác nhận (Chờ đóng gói)</span>
+          </td>
+          <td class="px-4 py-3 " ng-if="order.status==3">
+            <span class="text-warning">Đang giao hàng</span>
+          </td>
+          <td class="px-4 py-3 " ng-if="order.status==4">
+            <span class="text-warning">Hoàn tất giao dịch</span>
+          </td>
+          <td class="px-4 py-3 " ng-if="order.status==5">
+            <span class="text-warning">Hủy Đơn</span>
+          </td>
+          <td class="px-4 py-3 " ng-if="order.status==6">
+            <span class="text-warning">Hoàn trả</span>
+          </td>
+
+          <td class="px-4 py-3 ">
+            <button  ng-click="getOrder(order.id)" class="btn btn-success" style="border-radius:8px; width:100px;">
+              <a  style="color:white;"><i class="fa fa-info-circle" aria-hidden="true" style="margin-right:3px;"></i>Chi tiết</a>
+            </button>
+            <button ng-click="updateStatusCancel(order)" ng-if="order.status<2" class="btn btn-warning" style="border-radius:8px; width:100px;margin-top:10px;">
+              Hủy đơn
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="panel-footer text-center">
+        <button ng-click="pagerBill.first()" style="margin-right: 10px;">
+          <b class="text-sm"> |< </b>
+        </button>
+        <button ng-click="pagerBill.prev()" style="margin-right: 10px;">
+          <b class="text-sm"> < </b>
+        </button>
+        <button>{{pagerBill.page + 1}}of {{pagerBill.count}}</button>
+        <button ng-click="pagerBill.next()" style="margin-left: 10px;">
+          <b class="text-sm"> > </b>
+        </button>
+        <button ng-click="pagerBill.last()" style="margin-left: 10px;">
+          <b class="text-sm"> >| </b>
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
